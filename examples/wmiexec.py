@@ -126,9 +126,9 @@ class RemoteShell(cmd.Cmd):
         self.__share = share
         self.__output = '\\' + OUTPUT_FILENAME
         self.__outputBuffer = str('')
-        self.__shell = 'cmd.exe /Q /c '
+        self.__shell = 'c^m^d.exe ;"/"Q "@" ,/^c'
         self.__shell_type = shell_type
-        self.__pwsh = 'powershell.exe -NoP -NoL -sta -NonI -W Hidden -Exec Bypass -Enc '
+        self.__pwsh = 'powershell.exe /n"op" –nolog —s"ta" —n"o"nint"e"r -w hi"d" -"e"xe"c"u"ti" b"y"pas"s" –e"n"c"od"ed"c" '
         self.__win32Process = win32Process
         self.__transferClient = smbConnection
         self.__silentCommand = silentCommand
