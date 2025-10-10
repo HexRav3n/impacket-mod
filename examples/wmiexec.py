@@ -44,7 +44,7 @@ from impacket.dcerpc.v5.dcom import wmi
 from impacket.dcerpc.v5.dtypes import NULL
 from impacket.krb5.keytab import Keytab
 
-OUTPUT_FILENAME = '__' + str(time.time())
+OUTPUT_FILENAME = 'WindowsUpdateLog' + str(time.time())
 CODEC = sys.stdout.encoding
 
 
