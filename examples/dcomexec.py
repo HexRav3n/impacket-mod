@@ -381,7 +381,7 @@ class RemoteShell(cmd.Cmd):
             command = ' '.join(data.split()[1:])
         else:
             if shell_type == 'powershell':
-                data = '$ProgressPreference="Ignore";' + data
+                data = '$ProgressPreference="Continue";' + data
                 data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
             command = '/Q /c ' + data
 
