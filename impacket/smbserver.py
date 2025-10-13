@@ -2707,7 +2707,7 @@ class SMBCommands:
                 resp['Flags2'] = smb.SMB.FLAGS2_EXTENDED_SECURITY | smb.SMB.FLAGS2_NT_STATUS | smb.SMB.FLAGS2_UNICODE
                 # resp['Flags2'] = smb.SMB.FLAGS2_EXTENDED_SECURITY | smb.SMB.FLAGS2_NT_STATUS
                 _dialects_data = smb.SMBExtended_Security_Data()
-                _dialects_data['ServerGUID'] = b'A' * 16
+                _dialects_data['ServerGUID'] = ''.join(random.choices('123456789abcdef', k=16))
                 blob = SPNEGO_NegTokenInit()
                 blob['MechTypes'] = [TypesMech['NTLMSSP - Microsoft NTLM Security Support Provider']]
                 _dialects_data['SecurityBlob'] = blob.getData()
@@ -4914,7 +4914,7 @@ class SimpleSMBServer:
             self.__smbConfig.set('global', 'log_file', 'None')
             self.__smbConfig.set('global', 'rpc_apis', 'yes')
             self.__smbConfig.set('global', 'credentials_file', '')
-            self.__smbConfig.set('global', 'challenge', "A" * 16)
+            self.__smbConfig.set('global', 'challenge', ''.join(random.choices('0123456789abcdef', k=16)))
 
             # IPC always needed
             self.__smbConfig.add_section('IPC$')
