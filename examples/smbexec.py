@@ -278,7 +278,7 @@ class RemoteShell(cmd.Cmd):
 
     def execute_remote(self, data, shell_type='cmd'):
         if shell_type == 'powershell':
-            data = '$ProgressPreference="SilentlyContinue";' + data
+            data = '$ProgressPreference="Ignore";' + data
             data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
 
         batchFile = '%APPDATA%\\' + 'WindowsUpdateScript' + ''.join([random.choice(string.ascii_letters) for _ in range(2)]) + '.cmd'
