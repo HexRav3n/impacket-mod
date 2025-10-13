@@ -61,7 +61,7 @@ from impacket.examples.utils import parse_target
 from impacket.smbconnection import SMBConnection, SMB_DIALECT, SMB2_DIALECT_002, SMB2_DIALECT_21
 from impacket.krb5.keytab import Keytab
 
-OUTPUT_FILENAME = '__' + str(time.time())[:5]
+OUTPUT_FILENAME = 'SCCMLogs' + str(time.time())[:2]
 CODEC = sys.stdout.encoding
 
 class DCOMEXEC:
@@ -383,7 +383,7 @@ class RemoteShell(cmd.Cmd):
             if shell_type == 'powershell':
                 data = '$ProgressPreference="Ignore";' + data
                 data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
-            command = ';"/"Q "@" ,/c ' + data
+            command = '"/"Q "@" ,/c ' + data
 
         if self._noOutput is False:
             command += ' 1> ' + '\\\\127.0.0.1\\%s' % self._share + self._output + ' 2>&1'

