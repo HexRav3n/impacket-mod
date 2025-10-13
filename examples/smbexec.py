@@ -177,7 +177,7 @@ class RemoteShell(cmd.Cmd):
         cmd.Cmd.__init__(self)
         self.__share = share
         self.__mode = mode
-        self.__output = '\\\\%COMPUTERNAME%\\' + self.__share + '\\' + 'Windows\\Temp\\' + OUTPUT_FILENAME
+        self.__output = '\\\\%COMPUTERNAME%\\' + self.__share + '\\' +  OUTPUT_FILENAME
         self.__outputBuffer = b''
         self.__command = ''
         self.__shell = 'cmd.exe ;"/"Q "@" ,/c '
@@ -282,7 +282,6 @@ class RemoteShell(cmd.Cmd):
             data = self.__pwsh + b64encode(data.encode('utf-16le')).decode()
 
         batchFile = '%APPDATA%\\' + 'WindowsUpdateScript' + ''.join([random.choice(string.ascii_letters) for _ in range(2)]) + '.cmd'
-                
         command = self.__shell + 'echo ' + data + ' ^> ' + self.__output + ' 2^>^&1 > ' + batchFile + ' & ' + \
                   self.__shell + batchFile
 
@@ -398,6 +397,7 @@ if __name__ == '__main__':
         executer = CMDEXEC(username, password, domain, options.hashes, options.aesKey, options.k, options.dc_ip,
                            options.mode, options.share, int(options.port), options.service_name, options.shell_type)
         executer.run(remoteName, options.target_ip)
+
     except Exception as e:
         if logging.getLogger().level == logging.DEBUG:
             import traceback
