@@ -19,6 +19,7 @@ To install the modified version:
 ```
 git clone https://github.com/HexRav3n/impacket-mod.git
 python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 python3 setup.py install
 ```
