@@ -10,6 +10,8 @@ Impacket was originally created by [SecureAuth](https://www.secureauth.com/labs/
 
 ***
 
+# READ ME
+
 *This version was modified by me to make it more evasive*
 
 To install the modified version:
