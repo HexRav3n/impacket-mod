@@ -8,6 +8,17 @@ Copyright Fortra, LLC and its affiliated companies. All rights reserved.
 
 Impacket was originally created by [SecureAuth](https://www.secureauth.com/labs/open-source-tools/impacket), and now maintained by Fortra's Core Security.
 
+*This version was modified by me to make it more evasive*
+
+To install the modified version:
+
+```
+git clone https://github.com/HexRav3n/impacket-mod.git
+python3 -m venv venv
+pip install -r requirements.txt
+python3 setup.py install
+```
+
 Impacket is a collection of Python classes for working with network
 protocols. Impacket is focused on providing low-level
 programmatic access to the packets and for some protocols (e.g.
