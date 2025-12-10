@@ -605,9 +605,10 @@ def getNTLMSSPType1(workstation='', domain='', signingRequired = False, use_ntlm
     # Let's prepare a Type 1 NTLMSSP Message
     auth = NTLMAuthNegotiate()
     auth['flags']=0
+    # Always negotiate key exchange like real Windows clients (fixes Key Length: 0 detection)
+    auth['flags'] = NTLMSSP_NEGOTIATE_KEY_EXCH
     if signingRequired:
-       auth['flags'] = NTLMSSP_NEGOTIATE_KEY_EXCH | NTLMSSP_NEGOTIATE_SIGN | NTLMSSP_NEGOTIATE_ALWAYS_SIGN | \
-                       NTLMSSP_NEGOTIATE_SEAL
+       auth['flags'] |= NTLMSSP_NEGOTIATE_SIGN | NTLMSSP_NEGOTIATE_ALWAYS_SIGN | NTLMSSP_NEGOTIATE_SEAL
     if use_ntlmv2:
        auth['flags'] |= NTLMSSP_NEGOTIATE_TARGET_INFO
     auth['flags'] |= NTLMSSP_NEGOTIATE_NTLM | NTLMSSP_NEGOTIATE_EXTENDED_SESSIONSECURITY | NTLMSSP_NEGOTIATE_UNICODE | \
