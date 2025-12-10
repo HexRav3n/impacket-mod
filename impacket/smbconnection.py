@@ -373,7 +373,8 @@ class SMBConnection:
             if ntpath.ismount(share) is False:
                 # Else we build it
                 share = ntpath.basename(share)
-                share = '\\\\' + self.getRemoteHost() + '\\' + share
+                # Use remote name (hostname) instead of IP to match Windows behavior
+                share = '\\\\' + self.getRemoteName() + '\\' + share
         try:
             return self._SMBConnection.connect_tree(share)
         except (smb.SessionError, smb3.SessionError) as e:

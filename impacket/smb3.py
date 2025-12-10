@@ -194,7 +194,8 @@ class SMB3:
         self.RequireMessageSigning = False    #
         self.ConnectionTable = {}
         self.GlobalFileTable = {}
-        self.ClientGuid = ''.join([random.choice(string.ascii_letters) for i in range(16)])
+        # Generate proper random GUID (UUID4) to match Windows behavior
+        self.ClientGuid = uuid.generate().get_bytes_le()
         # Only for SMB 3.0
         self.EncryptionAlgorithmList = ['AES-CCM']
         self.MaxDialect = []
