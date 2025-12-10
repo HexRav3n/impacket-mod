@@ -38,6 +38,7 @@ import ntpath
 import random
 import string
 import struct
+import uuid as pyuuid
 from six import indexbytes, b
 from binascii import a2b_hex
 from contextlib import contextmanager
@@ -195,7 +196,7 @@ class SMB3:
         self.ConnectionTable = {}
         self.GlobalFileTable = {}
         # Generate proper random GUID (UUID4) to match Windows behavior
-        self.ClientGuid = uuid.uuid4().bytes_le
+        self.ClientGuid = pyuuid.uuid4().bytes_le
         # Only for SMB 3.0
         self.EncryptionAlgorithmList = ['AES-CCM']
         self.MaxDialect = []
