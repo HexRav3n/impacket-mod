@@ -2974,7 +2974,9 @@ class SMB(object):
                     self._dialects_parameters = SMBExtended_Security_Parameters(sessionResponse['Parameters'])
                     self._dialects_data = SMBExtended_Security_Data(sessionResponse['Data'])
                     # Let's setup some variable for later use
-                    if self._dialects_parameters['SecurityMode'] & SMB.SECURITY_SIGNATURES_REQUIRED:
+                    # Enable signing if server supports it (ensures KEY_EXCH works properly for Key Length: 128)
+                    if (self._dialects_parameters['SecurityMode'] & SMB.SECURITY_SIGNATURES_ENABLED) or \
+                       (self._dialects_parameters['SecurityMode'] & SMB.SECURITY_SIGNATURES_REQUIRED):
                          self._SignatureRequired = True
 
                     # Interestingly, the security Blob might be missing sometimes.

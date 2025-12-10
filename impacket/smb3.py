@@ -648,7 +648,10 @@ class SMB3:
         self._Connection['GSSNegotiateToken'] = negResp['Buffer']
         self._Connection['Dialect']           = negResp['DialectRevision']
 
-        if (negResp['SecurityMode'] & SMB2_NEGOTIATE_SIGNING_REQUIRED) == SMB2_NEGOTIATE_SIGNING_REQUIRED or \
+        # Enable signing if server supports it (not just requires) - this ensures KEY_EXCH works properly
+        # giving us Key Length: 128 in Windows event logs instead of 0
+        if (negResp['SecurityMode'] & SMB2_NEGOTIATE_SIGNING_ENABLED) == SMB2_NEGOTIATE_SIGNING_ENABLED or \
+                (negResp['SecurityMode'] & SMB2_NEGOTIATE_SIGNING_REQUIRED) == SMB2_NEGOTIATE_SIGNING_REQUIRED or \
                 self._Connection['Dialect'] == SMB2_DIALECT_311:
             self._Connection['RequireSigning'] = True
         if self._Connection['Dialect'] == SMB2_DIALECT_311:
