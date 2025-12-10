@@ -965,10 +965,7 @@ class SMB3:
 
         # Create Windows version structure to avoid detection (Windows 10 Build 19044)
         win_version = ntlm.VERSION()
-        win_version['ProductMajorVersion'] = 10
-        win_version['ProductMinorVersion'] = 0
-        win_version['ProductBuild'] = 19044
-        win_version['NTLMRevisionCurrent'] = 0x0F
+        win_version['ProductMajorVersion'], win_version['ProductMinorVersion'], win_version['ProductBuild'] = 10, 0, 19044
 
         sessionSetup = SMB2SessionSetup()
         if self.RequireMessageSigning is True:
