@@ -24,6 +24,8 @@ from __future__ import print_function
 import sys
 import logging
 import argparse
+import random
+import string
 from impacket.examples import logger
 from impacket.examples.utils import parse_target
 from impacket.examples.smbclient import MiniImpacketShell
@@ -92,7 +94,11 @@ def main():
         nthash = ''
 
     try:
-        smbClient = SMBConnection(address, options.target_ip, sess_port=int(options.port))
+        # Generate realistic Windows workstation name to avoid detection
+        hostname_suffix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+        myWorkstation = f"DESKTOP-{hostname_suffix}"
+
+        smbClient = SMBConnection(address, options.target_ip, myName=myWorkstation, sess_port=int(options.port))
         if options.k is True:
             smbClient.kerberosLogin(username, password, domain, lmhash, nthash, options.aesKey, options.dc_ip )
         else:
