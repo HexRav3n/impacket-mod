@@ -683,6 +683,10 @@ def getNTLMSSPType3(type1, type2, user, password, domain, lmhash = '', nthash = 
     if (ntlmChallenge['flags'] & NTLMSSP_NEGOTIATE_ALWAYS_SIGN) == 0:
         # No sign available, taking it out
         responseFlags &= 0xffffffff ^ NTLMSSP_NEGOTIATE_ALWAYS_SIGN
+    if (ntlmChallenge['flags'] & NTLMSSP_NEGOTIATE_VERSION) == 0:
+        # Server doesn't support version, remove it
+        responseFlags &= 0xffffffff ^ NTLMSSP_NEGOTIATE_VERSION
+        version = None  # Don't send version if server doesn't support it
 
     keyExchangeKey = KXKEY(ntlmChallenge['flags'], sessionBaseKey, lmResponse, ntlmChallenge['challenge'], password,
                            lmhash, nthash, use_ntlmv2)
