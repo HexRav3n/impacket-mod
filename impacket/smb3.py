@@ -963,10 +963,6 @@ class SMB3:
         self.__TGT      = None
         self.__TGS      = None
 
-        # Create Windows version structure to avoid detection (Windows 10 Build 19044)
-        win_version = ntlm.VERSION()
-        win_version['ProductMajorVersion'], win_version['ProductMinorVersion'], win_version['ProductBuild'] = 10, 0, 19044
-
         sessionSetup = SMB2SessionSetup()
         if self.RequireMessageSigning is True:
            sessionSetup['SecurityMode'] = SMB2_NEGOTIATE_SIGNING_REQUIRED
@@ -983,7 +979,7 @@ class SMB3:
 
         # NTLMSSP
         blob['MechTypes'] = [TypesMech['NTLMSSP - Microsoft NTLM Security Support Provider']]
-        auth = ntlm.getNTLMSSPType1(self._Connection['ClientName'],domain, self._Connection['RequireSigning'], version=win_version)
+        auth = ntlm.getNTLMSSPType1(self._Connection['ClientName'],domain, self._Connection['RequireSigning'])
         blob['MechToken'] = auth.getData()
 
         sessionSetup['SecurityBufferLength'] = len(blob)
@@ -1064,7 +1060,7 @@ class SMB3:
                         self._Session["ServerOSMinor"] = indexbytes(version,1)
                         self._Session["ServerOSBuild"] = struct.unpack('<H',version[2:4])[0]
 
-            type3, exportedSessionKey = ntlm.getNTLMSSPType3(auth, respToken['ResponseToken'], user, password, domain, lmhash, nthash, version=win_version)
+            type3, exportedSessionKey = ntlm.getNTLMSSPType3(auth, respToken['ResponseToken'], user, password, domain, lmhash, nthash)
 
             respToken2 = SPNEGO_NegTokenResp()
             respToken2['ResponseToken'] = type3.getData()

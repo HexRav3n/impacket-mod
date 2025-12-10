@@ -3599,10 +3599,6 @@ class SMB(object):
 
     def login_extended(self, user, password, domain = '', lmhash = '', nthash = '', use_ntlmv2 = True ):
 
-        # Create Windows version structure to avoid detection (Windows 10 Build 19044)
-        win_version = ntlm.VERSION()
-        win_version['ProductMajorVersion'], win_version['ProductMinorVersion'], win_version['ProductBuild'] = 10, 0, 19044
-
         # login feature does not support unicode
         # disable it if enabled
         flags2 = self.__flags2
@@ -3633,7 +3629,7 @@ class SMB(object):
 
         # NTLMSSP
         blob['MechTypes'] = [TypesMech['NTLMSSP - Microsoft NTLM Security Support Provider']]
-        auth = ntlm.getNTLMSSPType1(self.get_client_name(),domain,self._SignatureRequired, use_ntlmv2 = use_ntlmv2, version=win_version)
+        auth = ntlm.getNTLMSSPType1(self.get_client_name(),domain,self._SignatureRequired, use_ntlmv2 = use_ntlmv2)
         blob['MechToken'] = auth.getData()
 
         sessionSetup['Parameters']['SecurityBlobLength']  = len(blob)
@@ -3701,7 +3697,7 @@ class SMB(object):
                 if len(version) >= 4:
                    self.__server_os_major, self.__server_os_minor, self.__server_os_build = unpack('<BBH',version[:4])
 
-            type3, exportedSessionKey = ntlm.getNTLMSSPType3(auth, respToken['ResponseToken'], user, password, domain, lmhash, nthash, use_ntlmv2 = use_ntlmv2, version=win_version)
+            type3, exportedSessionKey = ntlm.getNTLMSSPType3(auth, respToken['ResponseToken'], user, password, domain, lmhash, nthash, use_ntlmv2 = use_ntlmv2)
 
             if exportedSessionKey is not None:
                 self._SigningSessionKey = exportedSessionKey
